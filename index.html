@@ -1,87 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Yes or No 😏</title>
+let messageIndex = 0;
 
-  <style>
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
+const messages = [
+  "Nope 😛",
+  "Missed me!",
+  "Try harder 😈",
+  "Too slow!",
+  "Just click YES 😌"
+];
 
-    button {
-      padding: 12px 24px;
-      font-size: 18px;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-    }
+function handleNoClick() {
+  const noButton = document.querySelector('.no-button');
+  const yesButton = document.querySelector('.yes-button');
 
-    .yes-button {
-      background-color: #4CAF50;
-      color: white;
-    }
+  // Change NO button text
+  noButton.textContent = messages[messageIndex];
+  messageIndex = (messageIndex + 1) % messages.length;
 
-    .no-button {
-      background-color: #f44336;
-      color: white;
-      transition: all 0.3s ease; /* smooth movement */
-    }
-  </style>
-</head>
+  // Random position for NO button
+  const maxX = window.innerWidth - noButton.offsetWidth;
+  const maxY = window.innerHeight - noButton.offsetHeight;
 
-<body>
+  const randomX = Math.floor(Math.random() * maxX);
+  const randomY = Math.floor(Math.random() * maxY);
 
-  <button class="yes-button" onclick="handleYesClick()">Yes 💖</button>
-  <button class="no-button" onclick="handleNoClick()">No 😏</button>
+  noButton.style.position = "absolute";
+  noButton.style.left = `${randomX}px`;
+  noButton.style.top = `${randomY}px`;
 
-  <script>
-    let messageIndex = 0;
+  // Grow YES button
+  const currentSize = parseFloat(
+    window.getComputedStyle(yesButton).fontSize
+  );
+  yesButton.style.fontSize = `${currentSize * 1.3}px`;
+}
 
-    const messages = [
-      "Nope 😛",
-      "Missed me!",
-      "Try harder 😈",
-      "Too slow!",
-      "Just click YES 😌"
-    ];
-
-    function handleNoClick() {
-      const noButton = document.querySelector('.no-button');
-      const yesButton = document.querySelector('.yes-button');
-
-      // Change NO button text
-      noButton.textContent = messages[messageIndex];
-      messageIndex = (messageIndex + 1) % messages.length;
-
-      // Random position for NO button
-      const maxX = window.innerWidth - noButton.offsetWidth;
-      const maxY = window.innerHeight - noButton.offsetHeight;
-
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
-
-      noButton.style.position = "absolute";
-      noButton.style.left = `${randomX}px`;
-      noButton.style.top = `${randomY}px`;
-
-      // Grow YES button
-      const currentSize = parseFloat(
-        window.getComputedStyle(yesButton).fontSize
-      );
-      yesButton.style.fontSize = `${currentSize * 1.3}px`;
-    }
-
-    function handleYesClick() {
-      window.location.href = "yes_page.html";
-    }
-  </script>
-
-</body>
-</html>
+function handleYesClick() {
+  window.location.href = "yes_page.html";
+}
